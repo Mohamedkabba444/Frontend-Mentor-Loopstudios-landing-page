@@ -1,0 +1,410 @@
+@import "_reset";
+@import "_variables";
+
+body {
+    font-size: $Font-size;
+    font-family: $Font-family-400;
+    font-weight: $Font-weight-300;
+}
+
+@mixin animation {
+    left: 0;
+    top: 100%;
+    width: 0%;
+    content: "";
+    height: 2.5px;
+    position: absolute;
+
+    background: #ffffff;
+}
+
+@mixin spacing {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    color: $White;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url(../images/mobile/image-hero.jpg);
+
+    height: 100dvh;
+    padding-inline: clamp(1.5rem, 5vw, 5rem);
+
+    h1 {
+        max-width: 500px;
+        margin-top: 12rem;
+        padding: clamp(2rem, 5vw, 2.5rem);
+        border: 2px solid hsl(0, 0%, 55%);
+
+        line-height: 1;
+        text-transform: uppercase;
+        font-family: $Font-family-300;
+        font-weight: $Font-weight-300;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    .primary-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        height: 70px;
+        margin-bottom: 2rem;
+
+        picture img {
+            width: fit-content;
+        }
+
+        .mobile-nav-toggle {
+            border: 0;
+            cursor: pointer;
+            background: transparent;
+
+            &::before {
+                top: 4%;
+                width: 8%;
+                left: 88%;
+                content: "";
+                aspect-ratio: 1;
+                position: absolute;
+
+                padding: 0.3rem;
+                background-size: contain;
+                background: url(../images/icon-hamburger.svg);
+                background-repeat: no-repeat;
+
+            }
+
+            &.active::before {
+                content: "";
+                position: absolute;
+
+                background: url(../images/icon-close.svg);
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+}
+
+.nav-list li a {
+    color: $White;
+    font-size: 1.5rem;
+    font-family: $Font-family-300;
+    text-decoration: none;
+
+    position: relative;
+
+    &::after {
+        @include animation()
+    }
+}
+
+@media (max-width: 35em) {
+    .primary-navigation {
+        display: none;
+
+        position: absolute;
+        padding: min(30vh, 10rem) 0;
+        background-color: $Black;
+
+        top: 0;
+        left: 0;
+        height: 100dvh;
+        width: 100dvw;
+
+        &[data-visible="true"] {
+            display: block;
+        }
+
+        .nav-list {
+            @include spacing()
+        }
+    }
+
+    .mobile-nav-toggle,
+    .container picture {
+        z-index: 9999;
+    }
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 5vw, 6rem);
+
+    margin: clamp(1.5rem, 5vw, 5rem);
+}
+
+section:not(class) {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    .content {
+        gap: 0.65rem;
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    h2 {
+        line-height: 1;
+        text-transform: uppercase;
+        font-family: $Font-family-300;
+        font-weight: $Font-weight-300;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    p {
+        color: $Dark-Gray;
+    }
+}
+
+.grid-container {
+    gap: 2rem;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "heading"
+        "items"
+        "button";
+
+    .heading {
+        grid-area: heading;
+    }
+
+    .grid_group {
+        grid-area: items;
+    }
+
+    button {
+        grid-area: button;
+    }
+
+    .heading {
+        text-transform: uppercase;
+        font-family: $Font-family-300;
+        font-weight: $Font-weight-300;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    button {
+        cursor: pointer;
+        padding: 6px 30px 6px;
+        letter-spacing: 1.5px;
+        transition: all 300ms;
+        background: transparent;
+        text-transform: uppercase;
+        border: 2px solid hsl(0, 0%, 41%);
+
+        font-weight: var(--Font-weight-400);
+        font-size: calc(var(--Font-size) - 2px);
+
+        &:hover,
+        &:focus {
+            color: hsl(0, 0%, 100%);
+            border-color: hsl(0, 0%, 0%);
+            background-color: hsl(0, 0%, 0%);
+        }
+    }
+
+    .grid_group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(323px, 1fr));
+        gap: 1.5rem;
+
+        picture {
+            position: relative;
+            cursor: pointer;
+
+            transition: all 0.5s;
+
+            &::after {
+                top: 0;
+                left: 0;
+                content: "";
+                position: absolute;
+                transition: all 500ms !important;
+
+                background: hsla(0, 0%, 100%, 0.5);
+            }
+
+            &:hover::after {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        picture span {
+            top: 50%;
+            left: 8%;
+            max-width: 150px;
+            position: absolute;
+            letter-spacing: 1px;
+            line-height: 1;
+            color: $White;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+
+            font-weight: $Font-weight-300;
+            font-family: $Font-family-300;
+
+            transition: all 500ms;
+        }
+
+        picture:hover span {
+            z-index: 1;
+            color: hsl(0, 0%, 0%);
+        }
+    }
+}
+
+@mixin flex-items {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    gap: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    color: $White;
+    background-color: $Black;
+
+    padding: 2rem clamp(2rem, 5vw, 5rem);
+
+    li {
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+            @include animation()
+        }
+    }
+
+    .flex_items {
+        align-items: center;
+        @include spacing();
+
+        ul {
+            align-items: center;
+            justify-content: center;
+            @include spacing();
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .social_icons {
+            cursor: pointer;
+            @include flex-items();
+        }
+
+        h4 {
+            color: $Dark-Gray;
+        }
+    }
+}
+
+@media (min-width: 35em) {
+    .mobile-nav-toggle {
+        display: none;
+    }
+
+    .nav-list {
+        @include flex-items();
+
+        a:hover::after {
+            width: 100%;
+        }
+    }
+
+    .container {
+        background-size: cover;
+        background-image: url(../images/desktop/image-hero.jpg);
+    }
+
+    .container header picture img,
+    footer .flex_items picture img {
+        width: max-content;
+    }
+
+    section:not(class) {
+        gap: 0;
+        align-items: center;
+        grid-template-columns: 1fr 1fr;
+
+        position: relative;
+
+        .content {
+            max-width: 600px;
+            text-align: left;
+
+            left: 41%;
+            top: 42%;
+            position: absolute;
+            padding: 6rem 0 0 4rem;
+            background-color: #ffffff;
+        }
+    }
+
+    .grid-container {
+        justify-items: start;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "heading heading button button"
+            "items items items items";
+
+        .heading {
+            height: fit-content;
+            grid-area: heading;
+        }
+
+        button {
+            height: fit-content;
+            grid-area: button;
+        }
+
+        .grid_group {
+            min-width: 100%;
+            grid-area: items;
+
+            picture span {
+                top: 83%;
+                left: 12%;
+            }
+        }
+    }
+
+    footer {
+        gap: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .flex_items {
+            gap: 2rem;
+            align-items: end;
+
+            ul {
+                flex-direction: row;
+
+                li:hover:after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
